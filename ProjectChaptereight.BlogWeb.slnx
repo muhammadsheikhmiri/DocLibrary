@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="ProjectChaptereight.BlogWeb.CoreLayer/ProjectChaptereight.BlogWeb.CoreLayer.csproj" />
+  <Project Path="ProjectChaptereight.BlogWeb.DataBaseLayer/ProjectChaptereight.BlogWeb.DataBaseLayer.csproj" />
+  <Project Path="ProjectChaptereight.BlogWeb/ProjectChaptereight.BlogWeb.csproj" />
+</Solution>

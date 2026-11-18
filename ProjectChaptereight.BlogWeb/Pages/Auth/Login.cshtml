@@ -1,0 +1,25 @@
+﻿@page "/"
+@model ProjectChaptereight.BlogWeb.Pages.Auth.LoginModel
+@{
+    Layout = "Shared/_AuthLayout";
+    ViewData["Title"] = "ورود به سایت";
+}
+<form method="post">
+    <h1>@ViewData["Title"]</h1>
+    <div>
+        <input type="text" asp-for="UsreName" placeholder="نام کاربری"  />
+        <span asp-validation-for="UsreName" style="color:red"></span>
+
+    </div>
+    <div>
+        <input type="Password" asp-for="Password" placeholder="کلمه عبور" />
+
+        <span asp-validation-for="Password" style="color:red"></span>
+    </div>
+    <div>
+        <input type="submit" value="ورود" />
+        <a href="#">فراموشی کلمه عبور</a>
+      @*   asp-page=href *@
+        <a asp-page="Register">ثبت نام</a>
+    </div>
+</form>

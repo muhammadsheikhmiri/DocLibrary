@@ -1,0 +1,94 @@
+﻿@model List<CoreLayer.DTOs.Categories.CategoryDto>
+<header class="nav">
+    <div class="nav__holder nav--sticky">
+        <div class="container relative">
+            <div class="flex-parent">
+
+                <!-- Side Menu Button -->
+                <button class="nav-icon-toggle" id="nav-icon-toggle" aria-label="Open side menu">
+                    <span class="nav-icon-toggle__box">
+                        <span class="nav-icon-toggle__inner"></span>
+                    </span>
+                </button>
+
+                <!-- Logo -->
+                <a href="index.html" class="logo">
+                    <img class="logo__img" src="img/logo_default.png" alt="logo">
+                </a>
+
+                <!-- Nav-wrap -->
+                <nav class="flex-child nav__wrap d-none d-lg-block">
+                    <ul class="nav__menu">
+
+                        <li >
+                            <a href="/">صفحه اصلی</a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="Category" asp-action="index">افزودن دسته بندی</a>
+
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="Post" asp-action="index">افزودن پست</a>
+                        </li>
+
+                            @foreach (var category in Model.Where(p => p.ParentID == null))
+                            {
+                                var hasChild = Model.Any(p => p.ParentID == category.Id);
+                                if (hasChild)
+                                {
+                                <li class="nav__dropdown">
+                                    <a href="/Search?categorySlug=@category.Slug">@category.Title</a>
+                                    <ul class="nav__dropdown-menu">
+                                        @foreach (var child in Model.Where(p => p.ParentID == category.Id))
+                                        {
+                                            <li>
+                                                <a href="/Search?categorySlug=@child.Slug">@child.Title</a>
+                                            </li>
+                                        }
+                                        @*          
+                                <li><a href="contact.html">تماس با ما</a></li>
+                                <li><a href="search-results.html">نتایج جستجو</a></li>
+                                <li><a href="categories.html">دسته بندی مطالب</a></li>
+                                <li><a href="single-post.html">نمایش مطلب</a></li>
+                                <li><a href="404.html">404</a></li> *@
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="/Search?categorySlug=@category.Slug">@category.Title</a>
+                                </li>
+                            }
+                        }
+                      
+                   
+                    
+                        <li> <!-- end megamenu -->
+                   
+
+
+                    </ul> <!-- end menu -->
+                </nav> <!-- end nav-wrap -->
+                <!-- Nav Right -->
+                <div class="nav__right">
+
+                    <!-- Search -->
+                    <div class="nav__right-item nav__search">
+                        <a href="#" class="nav__search-trigger" id="nav__search-trigger">
+                            <i class="ui-search nav__search-trigger-icon"></i>
+                        </a>
+                        <div class="nav__search-box" id="nav__search-box">
+                            <form asction="/search" class="nav__search-form">
+                                <input type="text" name="q" placeholder="جستجو مقالات" class="nav__search-input">
+                                <button type="submit" class="search-button btn btn-lg btn-color btn-button">
+                                    <i class="ui-search nav__search-icon"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div> <!-- end nav right -->
+            </div> <!-- end flex-parent -->
+        </div> <!-- end container -->
+    </div>
+</header>

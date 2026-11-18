@@ -1,0 +1,102 @@
+﻿@page "{handler?}"
+@using ProjectChaptereight.BlogWeb.CoreLayer.DTOs.Categories
+@using ProjectChaptereight.BlogWeb.CoreLayer.Services.Categories
+@using ProjectChaptereight.BlogWeb.CoreLayer.Utilities
+@model ProjectChaptereight.BlogWeb.Pages.SearchModel
+@inject ICategoryService _categoryService;
+@{
+    CategoryDto category = null;
+    var serach = "";
+
+    if (string.IsNullOrWhiteSpace(Model.Filter.FilterParams.CategorySlug))
+    {
+        category = _categoryService.GetCategoryBy(Model.Filter.FilterParams.CategorySlug);
+        if (category != null)
+        {
+            serach = category.Title;
+        }
+        else
+        {
+            serach = Model.Filter.FilterParams.Title ?? "مقالات سایت";
+        }
+        ViewData["Title"] = serach;
+    }
+}
+
+@section MetaTags {
+@if (category != null)
+    {
+        <meta property="og:type" content="article" />
+        <meta name="description" content="@category.MetaDescription" />
+        <meta name="og:description" content="@category.MetaDescription" />
+        <meta name="tiwter:description" content="@category.MetaDescription" />
+        @* عکس شبکه های اجتماعی *@
+  @*       <meta property="og:image" content="@imageUrl" />
+
+        <meta name="og:image:type" content="image/@imageType" />
+        <meta name="tiwter:image" content="@imageUrl" /> *@
+
+        @*     جهت ثبت کلمه ی کلیدی
+ *@    <meta name="keywords" content="@category.MetaTag" />
+
+    }
+
+}
+
+<div class="main-container container pt-40" id="main-container">
+    <!-- Content -->
+    <div class="row">
+        <div class="col-lg-8 blog__content mb-72">
+
+            @if (serach != null)
+            {
+                <h1 class="page-title">نتایج جستجوی برای:@serach</h1>
+            }
+            <div id="ajaxSearch">
+                <partial name="Shared/_SearchView" model="Model.Filter"/>
+            </div>
+
+           </div>
+        <!-- Posts -->
+        <!-- Sidebar -->
+        <aside class="col-lg-4 sidebar sidebar--right" id="Popular_Post">
+
+        </aside> <!-- end sidebar -->
+
+    </div> <!-- end content -->
+</div> <!-- end main container -->
+@section Scripts {
+    <script>
+        function ajaxPagination(pageId) {
+            const params = new URLSearchParams(window.location.search);
+
+            // اصلاح: مقادیر را از پارامترهای URL بخوانید
+            let categorySlug = params.get("categorySlug") || "";
+            let q = params.get("q") || "";
+
+            $.ajax({
+                // استفاده از url کوچک و اضافه کردن :
+                url: `/search/pagination?pageId=${pageId}&q=${encodeURIComponent(q)}&categorySlug=${encodeURIComponent(categorySlug)}`,
+                type: "GET",
+
+                beforeSend:function(){
+                    $(".Loading").show();
+                },
+                complete:function(){
+                       $(".Loading").hide();
+                },
+                // beforeSend: function() {
+                    // اختیاری: نمایش یک لودینگ برای کاربر
+                //     $("#ajaxSearch").html('<div class="text-center">در حال بارگذاری...</div>');
+                // },
+                success: function(data) {
+                    $("#ajaxSearch").html(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error("خطا در دریافت اطلاعات: ", error);
+                    $("#ajaxSearch").html('<p>متاسفانه خطایی رخ داد.</p>');
+                }
+            });
+        }
+    </script>
+}

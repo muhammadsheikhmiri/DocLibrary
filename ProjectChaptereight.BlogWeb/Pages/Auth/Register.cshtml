@@ -1,0 +1,36 @@
+@page
+@model ProjectChaptereight.BlogWeb.Pages.Auth.RegisterModel
+@{
+
+    Layout = "Shared/_AuthLayout";
+    ViewData["Title"] ="ثبت نام";
+
+}
+<form action="" method="post">
+    <h1>@ViewData["Title"]</h1>
+    <div>
+        
+        <input type="text" asp-for="FullName" placeholder="نام و نام خانوادگی" />
+        <tr/>
+        <span asp-validation-for="FullName" style="color:red;margin-top:5px; display:block;"></span>
+
+    </div>
+    <div>
+        <input type="text" asp-for="UserName" placeholder="نام کاربری"  />
+
+        <span asp-validation-for="UserName" style="color:red;margin-top:5px; display:block; "></span>
+    </div>
+    <div>
+        <input type="password" asp-for="Password" placeholder="کلمه عبور"  />
+        <span  asp-validation-for="Password" style="color:red;"></span>
+    </div>
+    <div>
+        <input type="text" asp-for="Email" placeholder="ایمیل"  />
+        <span asp-validation-for="Email" style="color:red"></span>
+    </div>
+    <div>
+        <input type="submit" value="ثبت نام" />
+        <a href="#">فراموشی کلمه عبور</a>
+        <a asp-page="Login">ورود به سایت</a>
+    </div>
+</form>

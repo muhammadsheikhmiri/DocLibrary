@@ -1,0 +1,25 @@
+﻿.entry__article {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    line-height: 1.8;
+    overflow: visible;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+    .entry__article img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 10px auto;
+    }
+
+    .entry__article p {
+        margin-bottom: 15px;
+    }
+.entry__article-wrap {
+    min-width: 0;
+}

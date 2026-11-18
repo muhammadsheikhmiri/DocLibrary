@@ -1,0 +1,185 @@
+﻿@model ProjectChaptereight.BlogWeb.Areas.Admin.Models.Posts.EditPostViewModel
+@using ProjectChaptereight.BlogWeb.CoreLayer.Services.Categories
+@inject ICategoryService _categorreyService
+
+@{
+    ViewData["title"] = "ویرایش مقاله";
+    ViewData["selected"] = "posts";
+    var categories = _categorreyService.GetAllCategory();
+    var counter = 1;
+}
+
+<section class="content-header">
+    <h1>
+        @ViewData["title"]
+    </h1>
+
+    <ol class="breadcrumb">
+
+        <li>
+            <a asp-area="Admin"
+               asp-controller="Home"
+               asp-action="index">
+                <i class="fa fa-dashboard"></i> خانه
+            </a>
+        </li>
+
+        <li>
+            <a asp-area="Admin"
+               asp-controller="Post"
+               asp-action="index">
+                مقالات
+            </a>
+        </li>
+
+        <li class="active">
+            @ViewData["title"]
+        </li>
+
+    </ol>
+</section>
+
+<section class="content">
+
+    <form class="box box-danger"
+          method="post"
+          asp-area="Admin"
+          asp-controller="Post"
+          asp-action="Edit"
+          enctype="multipart/form-data">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="box-body row">
+
+            <div class="col-md-6">
+                @Html.EditorFor(m => m.Title)
+            </div>
+
+            <div class="col-md-6">
+                @Html.EditorFor(m => m.Slug)
+            </div>
+
+            <div class="col-md-6 form-group">
+                <div class="form-group">
+
+                    <label asp-for="CategoryID"></label>
+
+                    <select asp-for="CategoryID" class="form-control">
+
+                        <option value="null">
+                            انتخاب کنید
+                        </option>
+
+                        @foreach (var item in categories.Where(c => c.ParentID == null))
+                        {
+                            <option value="@item.Id">
+                                @item.Title
+                            </option>
+                        }
+
+                    </select>
+
+                    <span asp-validation-for="CategoryID"></span>
+
+                </div>
+            </div>
+
+            <div class="col-md-6 form-group">
+                <div class="form-group">
+
+                    <label asp-for="SubCategoryID"></label>
+
+                    <select asp-for="SubCategoryID" class="form-control">
+
+                        <option value="0">
+                            انتخاب کنید
+                        </option>
+
+                        @foreach (var item in categories.Where(c => c.ParentID == Model.CategoryID))
+                        {
+                            <option value="@item.Id">
+                                @item.Title
+                            </option>
+                        }
+
+                    </select>
+
+                    <span asp-validation-for="SubCategoryID"></span>
+
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                @Html.EditorFor(m => m.Desceription)
+            </div>
+
+            <div class="col-md-12 form-group">
+
+                <label asp-for="Files"></label>
+
+                <input asp-for="Files"
+                       type="file"
+                       multiple
+                       class="form-control" />
+
+                <span asp-validation-for="Files"></span>
+
+            </div>
+
+            <div class="col-md-6">
+                @Html.EditorFor(m => m.Special)
+            </div>
+
+        </div>
+
+        <div class="box-footer">
+
+            <button class="btn btn-success" type="submit">
+                ثبت اطلاعات
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+@section scripts {
+
+    <script>
+
+        $("#CategoryID").change(function () {
+
+            var CategoryID = $(this).val();
+
+            // استفاده از ajax
+            $.ajax({
+
+                url: "/admin/category/GetChildCategories?ParentId=" + CategoryID,
+                type: "get"
+
+            }).done(function (data) {
+
+                $("#SubCategoryID").html(
+                    `<option value='0'>انتخاب کنید</option>`
+                );
+
+                for (var i in data) {
+
+                    var category = data[i];
+
+                    $("#SubCategoryID").append(
+                        `<option value='${category.id}'>${category.title}</option>`
+                    );
+                }
+
+                console.log(data);
+
+            });
+
+        });
+
+    </script>
+
+}

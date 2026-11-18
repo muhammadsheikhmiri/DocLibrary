@@ -1,0 +1,14 @@
+**/bin/
+**/obj/
+.vs/
+.vscode/
+*.user
+*.suo
+*.bak
+*.mdf
+*.ldf
+*.log
+appsettings.Development.json
+secrets.json
+
+wwwroot/files/posts/*
