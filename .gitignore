@@ -364,3 +364,8 @@ FodyWeavers.xsd/ProjectChaptereight.BlogWeb/wwwroot/images/*
 !/ProjectChaptereight.BlogWeb/wwwroot/images/.gitkeep
 
 /ProjectChaptereight.BlogWeb/wwwroot/images/**
+
+/ProjectChaptereight.BlogWeb/wwwroot/files/posts/**
+!/ProjectChaptereight.BlogWeb/wwwroot/files/posts/
+!/ProjectChaptereight.BlogWeb/wwwroot/files/posts/*/
+!/ProjectChaptereight.BlogWeb/wwwroot/files/posts/*/.gitkeep
