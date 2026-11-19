@@ -12,3 +12,4 @@ appsettings.Development.json
 secrets.json
 
 wwwroot/files/posts/*
+/ProjectChaptereight.BlogWeb/wwwroot/images/*
