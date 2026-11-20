@@ -2304,10 +2304,7 @@
     <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ProjectChaptereight.BlogWeb.CoreLayer\ProjectChaptereight.BlogWeb.CoreLayer.csproj" />
-    <ProjectReference Include="..\ProjectChaptereight.BlogWeb.DataBaseLayer\ProjectChaptereight.BlogWeb.DataBaseLayer.csproj" />
-  </ItemGroup>
+
 
   <ItemGroup>
     <None Include="wwwroot\admin\bower_components\.DS_Store" />
@@ -7639,6 +7636,11 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\admin\bower_components\moment\moment.d.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoreLayer\ProjectChaptereight.BlogWeb.CoreLayer.csproj" />
+    <ProjectReference Include="..\DataBaseLayer\ProjectChaptereight.BlogWeb.DataBaseLayer.csproj" />
   </ItemGroup>
 
 </Project>

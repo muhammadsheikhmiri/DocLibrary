@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProjectChaptereight.BlogWeb.DataBaseLayer\ProjectChaptereight.BlogWeb.DataBaseLayer.csproj" />
+   <ProjectReference Include="..\DataBaseLayer\ProjectChaptereight.BlogWeb.DataBaseLayer.csproj" />
   </ItemGroup>
 
 </Project>
